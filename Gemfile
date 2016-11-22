@@ -48,6 +48,10 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #bootstrap
-gem 'bootstrap', '~> 4.0.0.alpha3.1'
+gem 'bootstrap', '~> 4.0.0.alpha5'
 #react rails
 gem 'react-rails'
+#tether for positioning 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
