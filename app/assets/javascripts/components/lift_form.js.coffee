@@ -9,8 +9,8 @@ coefficients = {
     date: ''
     liftname: ''
     ismetric: false
-    weightlifted: ''
     repsperformed: ''
+    weightlifted: ''
     onerm: '0'
   # handleValueChange will detect the input that triggered it
   handleValueChange: (e) ->

@@ -12,6 +12,13 @@
     lifts = @state.lifts.slice()
     lifts.push lift
     @setState lifts: lifts
+  deleteLift: (lift) ->
+    # the lift will be removed from the array
+    lifts = @state.lifts.slice()
+    index = lifts.indexOf lift
+    lifts.splice index, 1
+    # overrights the previous state while setstate will only update one key of the state object
+    @replaceState lifts: lifts
   render: ->
     React.DOM.div
       className: 'lifts'
@@ -28,9 +35,10 @@
             React.DOM.th null, 'Date'
             React.DOM.th null, 'Lift Name'
             React.DOM.th null, 'Weight Lifted'
-            React.DOM.th null, 'Metric ?'
             React.DOM.th null, 'Reps Performed'
             React.DOM.th null, '1 RM'
+            React.DOM.th null, 'Metric ?'
+            React.DOM.th null, 'Actions'
         React.DOM.tbody null,
          for lift in @state.lifts
-          React.createElement Lift, key: lift.id, lift: lift, handleDeleteLift: @deleteLift, handleEditLift: @updateLift
+          React.createElement Lift, key: lift.id, lift: lift, handleDeleteLift: @deleteLift

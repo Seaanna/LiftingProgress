@@ -15,6 +15,13 @@ class LiftsController < ApplicationController
     @lifts = Lift.all
   end
 
+  def destroy
+    # delete a lift, find with Id and sends a request to destroy
+    @lift = Lift.find(params[:id])
+    @lift.destroy
+    head :no_content
+  end
+
   private
   # using strong params to whitelist data
   def lift_params
