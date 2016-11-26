@@ -4,10 +4,22 @@
   getInitialState: ->
     date: ''
     liftname: ''
-    ismetric: ''
+    ismetric: false
     weightlifted: ''
     repsperformed: ''
-    onerm: ''
+    onerm: 0
+    #coefficient responds to the number of reps performed filled with key value pairs
+    coefficients: {
+      1: 1, 2: .943, 3: .906, 4: .881, 5: .851, 6: .831, 7: .807, 8: .786, 9: .765, 10: .744
+    }
+  calculateOneRm: ->
+    # check to see if there is enough data to calculate
+    if @state.weightlifted and @state.repsperformed
+      # to calculate onerm, we devide the weight lifted by a coefficient that responds to the number of reps performed
+      # this passes state.repsperformed as the key
+      @state.onerm = @state.weightlifted / @state.coefficients [@state.repsperformed]
+    else
+      0
   # handleValueChange will detect the input that triggered it
   handleValueChange: (e) ->
     # assign the name of the input field to valueName
@@ -50,15 +62,11 @@
           name: 'liftname'
           value: @state.liftname
           onChange: @handleValueChange
-      React.DOM.div
-        className: 'form-group'
-        React.DOM.input
-          type: 'boolean'
-          className: 'form-control'
-          placeholder: 'ismetric'
-          name: 'ismetric'
-          value: @state.ismetric
-          onChange: @handleValueChange
+      React.DOM.a
+        className: 'btn btn-primary'
+        # button toggles between false and true when clicked
+        onClick: @toggleUnit
+        'Metric = ' +@state.ismetric.toString()
       React.DOM.div
         className: 'form-group'
         React.DOM.input
@@ -77,18 +85,11 @@
           name: 'repsperformed'
           value: @state.repsperformed
           onChange: @handleValueChange
-      React.DOM.div
-        className: 'form-group'
-        React.DOM.input
-          type: 'number'
-          className: 'form-control'
-          placeholder: 'onerm'
-          name: 'onerm'
-          value: @state.onerm
-          onChange: @handleValueChange
       React.DOM.button
         type: 'submit'
         className: 'btn btn-primary'
         #disable the function called valid
         disabled: !@valid()
         'Create Lift'
+      # rendering OneRmBox
+      React.createElement OneRmBox, onerm: @calculateOneRm()
