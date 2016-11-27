@@ -2,7 +2,6 @@ class LiftsController < ApplicationController
   def create
     # defining new create method
     @lift = Lift.new(lift_params)
-
     if @lift.save
       render json: @lift
     else
@@ -20,6 +19,16 @@ class LiftsController < ApplicationController
     @lift = Lift.find(params[:id])
     @lift.destroy
     head :no_content
+  end
+
+  def update
+    # update a lift
+    @lift = Lift.find(params[:id])
+    if @lift.update(lift_params)
+      render json: @lift
+    else
+      render json: @lift.errors, status: :unprocessable_entity
+    end
   end
 
   private

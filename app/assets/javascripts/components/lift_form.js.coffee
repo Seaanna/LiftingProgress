@@ -27,7 +27,7 @@ coefficients = {
     if @state.weightlifted and @state.repsperformed
       # to calculate onerm, we devide the weight lifted by a coefficient that responds to the number of reps performed
       # this passes state.repsperformed as the key
-      @state.onerm = @state.weightlifted / coefficients[@state.repsperformed]
+        @state.onerm = @state.weightlifted / coefficients[@state.repsperformed]
     else
       0
     # creating valid function to check the input data
